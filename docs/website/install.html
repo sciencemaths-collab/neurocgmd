@@ -103,44 +103,81 @@
 <div class="main">
 <div class="content">
 
-<h1>Installation</h1>
-<p class="page-desc">One command. No compilation. No Fortran. No MPI configuration.</p>
+<h1>Download &amp; <span class="accent">Install</span></h1>
+<p class="page-desc">NeuroCGMD is a pure Python package. No compilation, no Fortran, no MPI, no GPU drivers required.</p>
 
-<div class="ng c2"><div class="nd gr" onclick="N(this)"><div class="nm">From PyPI (recommended)</div><div class="ds">pip install neurocgmd</div><div class="dt">Installs the <code>neurocgmd</code> CLI and all packages. <pre><code>pip install neurocgmd</code></pre></div></div><div class="nd bl" onclick="N(this)"><div class="nm">From source (development)</div><div class="ds">git clone + pip install -e</div><div class="dt">Editable mode for development. <pre><code>git clone https://github.com/sciencemaths-collab/neurocgmd.git
-cd neurocgmd
-pip install -e ".[dev]"</code></pre></div></div></div>
+<table>
+<tr><th>Method</th><th>Command / Link</th></tr>
+<tr><td><strong>pip</strong> (recommended)</td><td><code>pip install neurocgmd</code></td></tr>
+<tr><td><strong>Wheel</strong> (.whl)</td><td><a href="https://pypi.org/project/neurocgmd/1.0.0/#files">neurocgmd-1.0.0-py3-none-any.whl</a></td></tr>
+<tr><td><strong>Tarball</strong> (.tar.gz)</td><td><a href="https://pypi.org/project/neurocgmd/1.0.0/#files">neurocgmd-1.0.0.tar.gz</a></td></tr>
+<tr><td><strong>Source</strong> (GitHub)</td><td><a href="https://github.com/sciencemaths-collab/neurocgmd">github.com/sciencemaths-collab/neurocgmd</a></td></tr>
+<tr><td><strong>ZIP</strong> (no git needed)</td><td><a href="https://github.com/sciencemaths-collab/neurocgmd/archive/refs/heads/main.zip">Download ZIP</a></td></tr>
+</table>
+
+<div class="layer" style="background:var(--bg-card);border:1px solid var(--gold)40">
+<div class="layer-title" style="color:var(--gold)" onclick="T(this)"><span class="tg open">&#9654;</span> BEFORE YOU START <span style="font-size:11px;font-weight:400;color:var(--text-muted);text-transform:none;letter-spacing:0">&mdash; check that Python 3.11+ is installed</span></div>
+<div class="layer-body " style="max-height:3000pxpx">
+<div class="nd go" onclick="N(this)"><div class="nm">Prerequisites</div><div class="ds">What you need before installing NeuroCGMD</div><div class="dt"><strong>Python 3.11 or newer</strong> is required. To check your Python version:<br><pre><code>python3 --version</code></pre>If you see 3.11 or higher, you are ready. If not, download Python from <a href="https://python.org/downloads" target="_blank">python.org/downloads</a>.<br><br><strong>pip</strong> (Python's package installer) comes with Python. To check:<br><pre><code>pip --version</code></pre>If this command is not found, install pip:<br><pre><code>python3 -m ensurepip --upgrade</code></pre></div></div>
+</div></div>
+
+<div class="df"><div class="dots"><div class="d gr"></div><div class="d gr"></div><div class="d gr"></div></div><span>choose your installation method</span><div class="dots"><div class="d gr"></div><div class="d gr"></div><div class="d gr"></div></div></div>
+
+<div class="ng" style="grid-template-columns:1fr">
+<div class="nd gr" onclick="N(this)"><div class="nm">Method 1: Install with pip (Recommended)</div><div class="ds">The simplest way — one command, everything is handled for you</div><div class="dt">This is the recommended method for most users. Open a terminal (Terminal on macOS, Command Prompt or PowerShell on Windows, or any terminal on Linux) and type:<br><br><pre><code>pip install neurocgmd</code></pre>This automatically downloads NeuroCGMD and its two dependencies (NumPy and Matplotlib) from the Python Package Index (PyPI). Once complete, the <code>neurocgmd</code> command is available system-wide.<br><br><strong>If you get a permission error</strong>, try:<br><pre><code>pip install --user neurocgmd</code></pre><strong>If you use conda</strong>:<br><pre><code>pip install neurocgmd</code></pre>pip works inside conda environments.</div></div>
+<div class="nd bl" onclick="N(this)"><div class="nm">Method 2: Download from PyPI</div><div class="ds">Download the package file manually and install it yourself</div><div class="dt">Go to the NeuroCGMD download page:<br><br><strong><a href="https://pypi.org/project/neurocgmd/1.0.0/#files" target="_blank">https://pypi.org/project/neurocgmd/1.0.0/#files</a></strong><br><br>You will see two files available for download:<br><br><strong>Option A &mdash; Wheel file (.whl)</strong> &mdash; pre-built, installs fastest:<br><code>neurocgmd-1.0.0-py3-none-any.whl</code> (520 KB)<br>After downloading, open a terminal, navigate to your Downloads folder, and run:<br><pre><code>cd ~/Downloads
+pip install neurocgmd-1.0.0-py3-none-any.whl</code></pre><strong>Option B &mdash; Source archive (.tar.gz)</strong> &mdash; contains the full source code:<br><code>neurocgmd-1.0.0.tar.gz</code> (745 KB)<br>After downloading, open a terminal and run:<br><pre><code>cd ~/Downloads
+tar xzf neurocgmd-1.0.0.tar.gz
+cd neurocgmd-1.0.0
+pip install .</code></pre>Both options install the exact same software. The wheel is faster; the tar.gz lets you browse the source code before installing.</div></div>
+<div class="nd pu" onclick="N(this)"><div class="nm">Method 3: Install from GitHub</div><div class="ds">Get the latest source code directly from the repository</div><div class="dt">This method is for developers who want to modify the code, contribute, or always stay on the latest version.<br><br><strong>Step 1:</strong> Clone the repository:<br><pre><code>git clone https://github.com/sciencemaths-collab/neurocgmd.git</code></pre><strong>Step 2:</strong> Enter the directory and install:<br><pre><code>cd neurocgmd
+pip install -e .</code></pre>The <code>-e</code> flag means "editable mode" &mdash; any changes you make to the source code take effect immediately without reinstalling.<br><br><strong>To include development tools</strong> (testing, linting):<br><pre><code>pip install -e ".[dev]"</code></pre>You can also download the source as a zip without git:<br><a href="https://github.com/sciencemaths-collab/neurocgmd/archive/refs/heads/main.zip">Download ZIP from GitHub</a></div></div>
+</div>
 
 <div class="df"><div class="dots"><div class="d gr"></div><div class="d gr"></div><div class="d gr"></div></div><span>verify your installation</span><div class="dots"><div class="d gr"></div><div class="d gr"></div><div class="d gr"></div></div></div>
 
 <div class="layer" style="background:var(--bg-card);border:1px solid var(--green)40">
-<div class="layer-title" style="color:var(--green)" onclick="T(this)"><span class="tg open">&#9654;</span> VERIFY</div>
+<div class="layer-title" style="color:var(--green)" onclick="T(this)"><span class="tg open">&#9654;</span> VERIFY INSTALLATION <span style="font-size:11px;font-weight:400;color:var(--text-muted);text-transform:none;letter-spacing:0">&mdash; make sure everything works</span></div>
 <div class="layer-body " style="max-height:3000pxpx">
-<pre><code>neurocgmd info       # color-coded capabilities display\nneurocgmd --version  # neurocgmd 1.0.0</code></pre>
+After installing with any method above, open a terminal and run:<br><br>
+<pre><code>neurocgmd --version</code></pre>
+You should see: <code>neurocgmd 1.0.0</code><br><br>
+Then run the full capabilities display:<br>
+<pre><code>neurocgmd info</code></pre>
+This shows a color-coded overview of all integrators, force fields, analysis tools, and supported systems.<br><br>
+<strong>If the command is not found</strong>, your Python scripts directory may not be in your PATH. Try running it as a module instead:<br>
+<pre><code>python3 -m neurocgmd info</code></pre>
 </div></div>
 
-<div class="df"><div class="dots"><div class="d go"></div><div class="d go"></div><div class="d go"></div></div><span>just two dependencies</span><div class="dots"><div class="d go"></div><div class="d go"></div><div class="d go"></div></div></div>
+<div class="df"><div class="dots"><div class="d go"></div><div class="d go"></div><div class="d go"></div></div><span>dependencies</span><div class="dots"><div class="d go"></div><div class="d go"></div><div class="d go"></div></div></div>
 
 <div class="layer" style="background:var(--bg-card);border:1px solid var(--gold)40">
-<div class="layer-title" style="color:var(--gold)" onclick="T(this)"><span class="tg open">&#9654;</span> DEPENDENCIES <span style="font-size:11px;font-weight:400;color:var(--text-muted);text-transform:none;letter-spacing:0">&mdash; that is the entire dependency tree</span></div>
+<div class="layer-title" style="color:var(--gold)" onclick="T(this)"><span class="tg open">&#9654;</span> DEPENDENCIES <span style="font-size:11px;font-weight:400;color:var(--text-muted);text-transform:none;letter-spacing:0">&mdash; automatically installed &mdash; you don't need to do anything</span></div>
 <div class="layer-body " style="max-height:3000pxpx">
-<div class="ng c3"><div class="nd go" onclick="N(this)"><div class="nm">Python</div><div class="ds">&ge; 3.11</div><div class="dt">Runtime. Uses tomllib, match statements, type unions.</div></div><div class="nd bl" onclick="N(this)"><div class="nm">NumPy</div><div class="ds">&ge; 1.24</div><div class="dt">Numerical arrays, linear algebra, vectorized operations.</div></div><div class="nd pu" onclick="N(this)"><div class="nm">Matplotlib</div><div class="ds">&ge; 3.7</div><div class="dt">Publication-quality plots. 20+ plot types generated automatically.</div></div></div>
+<div class="ng c3"><div class="nd go" onclick="N(this)"><div class="nm">Python</div><div class="ds">&ge; 3.11</div><div class="dt">The only prerequisite. Download from python.org if needed.</div></div><div class="nd bl" onclick="N(this)"><div class="nm">NumPy</div><div class="ds">&ge; 1.24</div><div class="dt">Installed automatically. Handles numerical computation.</div></div><div class="nd pu" onclick="N(this)"><div class="nm">Matplotlib</div><div class="ds">&ge; 3.7</div><div class="dt">Installed automatically. Generates all analysis plots.</div></div></div><p style="color:var(--text-muted); font-size:13px; margin-top:12px;">NumPy and Matplotlib are installed automatically when you run <code>pip install neurocgmd</code>. You do not need to install them separately. There are no other dependencies &mdash; no CUDA, FFTW, OpenCL, MPI, or Fortran compiler required.</p>
 </div></div>
 
 <div class="df"><div class="dots"><div class="d te"></div><div class="d te"></div><div class="d te"></div></div><span>runs everywhere</span><div class="dots"><div class="d te"></div><div class="d te"></div><div class="d te"></div></div></div>
 
 <div class="layer" style="background:var(--bg-card);border:1px solid var(--teal)40">
-<div class="layer-title" style="color:var(--teal)" onclick="T(this)"><span class="tg open">&#9654;</span> PLATFORMS <span style="font-size:11px;font-weight:400;color:var(--text-muted);text-transform:none;letter-spacing:0">&mdash; any platform with Python 3.11+ and pip</span></div>
+<div class="layer-title" style="color:var(--teal)" onclick="T(this)"><span class="tg open">&#9654;</span> SUPPORTED PLATFORMS <span style="font-size:11px;font-weight:400;color:var(--text-muted);text-transform:none;letter-spacing:0">&mdash; any system that runs Python 3.11+</span></div>
 <div class="layer-body " style="max-height:3000pxpx">
-<div class="ng c3"><div class="nd te" onclick="N(this)"><div class="nm">macOS</div><div class="ds">Apple Silicon &amp; Intel</div><div class="dt">Fully supported. Tested on M1/M2/M3 and Intel.</div></div><div class="nd te" onclick="N(this)"><div class="nm">Linux</div><div class="ds">x86_64 &amp; aarch64</div><div class="dt">All major distributions. CI tested on Ubuntu 22.04.</div></div><div class="nd te" onclick="N(this)"><div class="nm">Windows</div><div class="ds">10 / 11</div><div class="dt">Full support via standard Python installation.</div></div></div>
+<div class="ng c3"><div class="nd te" onclick="N(this)"><div class="nm">macOS</div><div class="ds">Apple Silicon &amp; Intel</div><div class="dt">Fully supported. Works on M1/M2/M3 and older Intel Macs.</div></div><div class="nd te" onclick="N(this)"><div class="nm">Linux</div><div class="ds">x86_64 &amp; aarch64</div><div class="dt">All major distributions: Ubuntu, CentOS, Fedora, Debian.</div></div><div class="nd te" onclick="N(this)"><div class="nm">Windows</div><div class="ds">10 / 11</div><div class="dt">Full support. Use Command Prompt, PowerShell, or WSL.</div></div></div>
 </div></div>
 
-<div class="chips">
-  <div class="chip gr">No CUDA</div>
-  <div class="chip gr">No FFTW</div>
-  <div class="chip gr">No OpenCL</div>
-  <div class="chip gr">No MPI</div>
-  <div class="chip gr">No Fortran</div>
-</div>
+<div class="df"><div class="dots"><div class="d or"></div><div class="d or"></div><div class="d or"></div></div><span>need help?</span><div class="dots"><div class="d or"></div><div class="d or"></div><div class="d or"></div></div></div>
+
+<div class="layer" style="background:var(--bg-card);border:1px solid var(--orange)40">
+<div class="layer-title" style="color:var(--orange)" onclick="T(this)"><span class="tg open">&#9654;</span> TROUBLESHOOTING <span style="font-size:11px;font-weight:400;color:var(--text-muted);text-transform:none;letter-spacing:0">&mdash; click to see common solutions</span></div>
+<div class="layer-body " style="max-height:3000pxpx">
+<div class="ng c1"><div class="nd or" onclick="N(this)"><div class="nm">Common Issues</div><div class="ds">Click to expand solutions</div><div class="dt"><strong>"pip: command not found"</strong><br>Try <code>pip3</code> instead of <code>pip</code>, or <code>python3 -m pip install neurocgmd</code>.<br><br><strong>"Permission denied"</strong><br>Add <code>--user</code> flag: <code>pip install --user neurocgmd</code><br><br><strong>"Python version too old"</strong><br>NeuroCGMD requires Python 3.11+. Download the latest from <a href="https://python.org/downloads">python.org</a>.<br><br><strong>"neurocgmd: command not found" after install</strong><br>Try: <code>python3 -m neurocgmd info</code><br>Or add your Python scripts directory to PATH.<br><br><strong>Still stuck?</strong><br>Email <a href="mailto:bessuman.academia@gmail.com?subject=[NeuroCGMD] Installation Help">bessuman.academia@gmail.com</a> with your OS, Python version, and the error message.</div></div></div>
+</div></div>
+
+<div class="layer" style="background:var(--bg-card);border:1px solid var(--red)40">
+<div class="layer-title" style="color:var(--red)" onclick="T(this)"><span class="tg">&#9654;</span> UNINSTALL</div>
+<div class="layer-body collapsed" style="max-height:0px">
+<pre><code>pip uninstall neurocgmd</code></pre><p style="color:var(--text-muted);font-size:13px;">This removes NeuroCGMD but keeps your simulation output files and configurations.</p>
+</div></div>
 
 </div>
 <div class="footer">

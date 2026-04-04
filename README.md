@@ -43,25 +43,61 @@ The result: **a 500 KB pure-Python package** that does what legacy codes need mi
 ---
 
 <a id="install"></a>
-## Install
+## Download & Install
 
+| Method | Command / Link |
+|:-------|:---------------|
+| **pip** (recommended) | `pip install neurocgmd` |
+| **Wheel** (.whl) | [neurocgmd-1.0.0-py3-none-any.whl](https://pypi.org/project/neurocgmd/1.0.0/#files) |
+| **Tarball** (.tar.gz) | [neurocgmd-1.0.0.tar.gz](https://pypi.org/project/neurocgmd/1.0.0/#files) |
+| **Source** (GitHub) | [github.com/sciencemaths-collab/neurocgmd](https://github.com/sciencemaths-collab/neurocgmd) |
+| **ZIP** (GitHub) | [Download ZIP](https://github.com/sciencemaths-collab/neurocgmd/archive/refs/heads/main.zip) |
+
+### pip (recommended — one command)
 ```bash
 pip install neurocgmd
 ```
+This downloads and installs everything automatically. No compilation needed.
 
-That's it. No compilation, no Fortran, no MPI configuration. Works on any platform with Python 3.11+.
+### From wheel (.whl)
+Download [neurocgmd-1.0.0-py3-none-any.whl](https://pypi.org/project/neurocgmd/1.0.0/#files) from PyPI, then:
+```bash
+pip install neurocgmd-1.0.0-py3-none-any.whl
+```
 
-**From source:**
+### From tarball (.tar.gz)
+Download [neurocgmd-1.0.0.tar.gz](https://pypi.org/project/neurocgmd/1.0.0/#files) from PyPI, then:
+```bash
+tar xzf neurocgmd-1.0.0.tar.gz
+cd neurocgmd-1.0.0
+pip install .
+```
+
+### From source (GitHub)
 ```bash
 git clone https://github.com/sciencemaths-collab/neurocgmd.git
 cd neurocgmd
-pip install -e .
+pip install .
 ```
 
-**Verify:**
+### Download ZIP (no git required)
+Download [neurocgmd-main.zip](https://github.com/sciencemaths-collab/neurocgmd/archive/refs/heads/main.zip), unzip, then:
 ```bash
-neurocgmd info
+cd neurocgmd-main
+pip install .
 ```
+
+### Verify installation
+After installing with any method above:
+```bash
+neurocgmd --version    # neurocgmd 1.0.0
+neurocgmd info         # shows all capabilities
+```
+
+### Requirements
+- **Python 3.11+** — check with `python3 --version`
+- **numpy** and **matplotlib** — installed automatically
+- No CUDA, MPI, Fortran, or compilation required
 
 ---
 
