@@ -1,0 +1,61 @@
+[system]
+name = "barnase_barstar_20ns"
+structure = "benchmarks/reference_cases/data/1BRS.pdb"
+chains = ["A", "D"]
+temperature = 1.0
+
+[prepare]
+protonation = "auto"
+
+[solvent]
+mode = "explicit"
+water_model = "tip3p"
+padding_nm = 1.0
+
+[ions]
+neutralize = true
+salt = "NaCl"
+ionic_strength_molar = 0.15
+
+[forcefield]
+constraints = "none"
+
+[nonbonded]
+vdw_cutoff_nm = 1.2
+
+[stages.em]
+enabled = true
+max_steps = 500
+
+[stages.nvt]
+enabled = true
+dt = 0.002
+nsteps = 5000
+eval_stride = 50
+
+[stages.npt]
+enabled = true
+dt = 0.002
+nsteps = 5000
+eval_stride = 50
+
+[stages.production]
+enabled = true
+dt = 0.020
+nsteps = 100000
+eval_stride = 50
+
+[hybrid.ml]
+enabled = true
+model = "scalable_residual"
+online_training = true
+
+[hybrid.control]
+enabled = true
+
+[outputs]
+output_dir = "outputs/barnase_barstar_20ns"
+trajectory = "traj.jsonl"
+energies = "ener.csv"
+checkpoint = "state.json"
+report = "analysis.html"

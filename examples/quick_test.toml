@@ -1,0 +1,57 @@
+[system]
+name = "quick_test"
+structure = "examples/test_chain.pdb"
+chains = ["A"]
+temperature = 300.0
+
+[prepare]
+protonation = "auto"
+
+[solvent]
+mode = "explicit"
+water_model = "tip3p"
+padding_nm = 1.0
+
+[ions]
+neutralize = true
+salt = "NaCl"
+ionic_strength_molar = 0.15
+
+[forcefield]
+constraints = "h_bonds"
+constraint_algorithm = "lincs"
+
+[nonbonded]
+vdw_cutoff_nm = 1.2
+coulomb_cutoff_nm = 1.2
+neighbor_skin_nm = 0.3
+
+[stages.em]
+enabled = false
+
+[stages.nvt]
+enabled = true
+dt = 0.002
+nsteps = 100
+
+[stages.npt]
+enabled = false
+
+[stages.production]
+enabled = true
+dt = 0.002
+nsteps = 200
+
+[hybrid.ml]
+enabled = true
+model = "scalable_residual"
+online_training = true
+
+[hybrid.control]
+enabled = true
+
+[outputs]
+trajectory = "examples/output/traj.jsonl"
+energies = "examples/output/ener.csv"
+checkpoint = "examples/output/state.json"
+report = "examples/output/analysis.html"

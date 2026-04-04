@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Integrators - NeuroCGMD Documentation</title>
+<meta name="description" content="NeuroCGMD: Quantum-Classical-CG-ML Cooperative Molecular Dynamics Engine documentation.">
+<link rel="stylesheet" href="../style.css">
+
+<style>
+.layer{position:relative;margin:0 0 6px;border-radius:12px;padding:20px;transition:all .3s}
+.layer-title{font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;margin-bottom:14px;display:flex;align-items:center;gap:10px;cursor:pointer;user-select:none}
+.layer-title .tg{font-size:11px;opacity:.5;transition:transform .3s}
+.layer-title .tg.open{transform:rotate(90deg)}
+.layer-body{overflow:hidden;transition:max-height .5s ease,opacity .3s}
+.layer-body.collapsed{max-height:0!important;opacity:0;padding:0}
+.ng{display:grid;gap:10px}
+.ng.c4{grid-template-columns:repeat(4,1fr)}.ng.c3{grid-template-columns:repeat(3,1fr)}.ng.c2{grid-template-columns:repeat(2,1fr)}
+.nd{background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:14px 16px;cursor:pointer;transition:all .25s;position:relative;overflow:hidden}
+.nd:hover{transform:translateY(-3px);box-shadow:0 8px 24px #00000060}
+.nd::before{content:'';position:absolute;top:0;left:0;right:0;height:3px}
+.nd.bl::before{background:var(--blue)}.nd.bl:hover{border-color:var(--blue)}
+.nd.pu::before{background:var(--purple)}.nd.pu:hover{border-color:var(--purple)}
+.nd.go::before{background:var(--gold)}.nd.go:hover{border-color:var(--gold)}
+.nd.te::before{background:var(--teal)}.nd.te:hover{border-color:var(--teal)}
+.nd.gr::before{background:var(--green)}.nd.gr:hover{border-color:var(--green)}
+.nd.or::before{background:var(--orange)}.nd.or:hover{border-color:var(--orange)}
+.nd.pk::before{background:var(--pink)}.nd.pk:hover{border-color:var(--pink)}
+.nd .nm{font-size:13px;font-weight:600;margin-bottom:4px}
+.nd .ds{font-size:11px;color:var(--text-muted);line-height:1.5}
+.nd .dt{display:none;margin-top:10px;padding-top:10px;border-top:1px solid var(--border);font-size:12px;color:var(--text-muted);line-height:1.7}
+.nd.ex .dt{display:block;animation:fi .3s}
+.nd .fm{font-family:'Times New Roman',Georgia,serif;font-size:13px;color:var(--gold);margin:6px 0;font-style:italic}
+.eqbar{background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:14px 20px;margin:12px 0;text-align:center;transition:border-color .3s;cursor:pointer}
+.eqbar:hover{border-color:var(--gold)}
+.eqbar .eq{color:var(--green);font-family:'Times New Roman',Georgia,serif}
+.eqbar .nt{font-size:12px;color:var(--text-muted);margin-top:6px;font-style:italic}
+.ecols{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px}
+.ecol{display:flex;flex-direction:column;gap:8px}
+.ch{text-align:center;font-size:12px;font-weight:700;letter-spacing:.06em;padding:8px;border-radius:6px;margin-bottom:4px}
+.df{display:flex;align-items:center;justify-content:center;gap:8px;margin:8px 0;font-size:11px;color:var(--text-muted)}
+.df .dots{display:flex;gap:4px}
+.df .d{width:4px;height:4px;border-radius:50%;animation:pu 1.5s ease-in-out infinite}
+.df .d:nth-child(2){animation-delay:.3s}.df .d:nth-child(3){animation-delay:.6s}
+.df .d.bl{background:var(--blue)}.df .d.pu{background:var(--purple)}.df .d.go{background:var(--gold)}
+.df .d.te{background:var(--teal)}.df .d.gr{background:var(--green)}.df .d.pk{background:var(--pink)}
+.al{list-style:none;padding:0;margin:8px 0 0}
+.al li{font-size:12px;padding:5px 0;display:flex;justify-content:space-between;border-bottom:1px solid #30363D40}
+.al li:last-child{border-bottom:none}
+.al .n{font-weight:600}.al .d{color:var(--text-muted);font-size:11px}
+.chips{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin:20px 0}
+.chip{padding:10px 18px;border-radius:20px;font-size:12px;font-weight:600;text-align:center;border:1px solid;transition:transform .2s}
+.chip:hover{transform:scale(1.05)}
+.chip.bl{color:var(--blue);border-color:#58A6FF30;background:#58A6FF08}
+.chip.pu{color:var(--purple);border-color:#BC8CFF30;background:#BC8CFF08}
+.chip.go{color:var(--gold);border-color:#F0C75E30;background:#F0C75E08}
+.chip.te{color:var(--teal);border-color:#3FB9A230;background:#3FB9A208}
+.chip.pk{color:var(--pink);border-color:#F778BA30;background:#F778BA08}
+.chip.or{color:var(--orange);border-color:#F0883E30;background:#F0883E08}
+.chip.gr{color:var(--green);border-color:#56D36430;background:#56D36408}
+.gi{background:var(--bg-card);border:1px solid var(--border);border-radius:10px;overflow:hidden;transition:border-color .3s}
+.gi:hover{border-color:var(--blue)}.gi img{width:100%;display:block}
+.gi .cap{padding:12px 14px}.gi .cap h4{font-size:13px;margin-bottom:3px}.gi .cap p{font-size:12px;color:var(--text-muted);margin:0}
+.gg{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px;margin:24px 0}
+.gi.wide{grid-column:span 2}
+.contact-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;margin:24px 0}
+.cc{background:var(--bg-card);border:1px solid var(--border);border-radius:10px;padding:18px;text-align:center;transition:border-color .3s;display:block}
+.cc:hover{border-color:var(--teal)}.cc .tp{font-size:11px;color:var(--text-muted);text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px}
+.cc .sj{font-family:var(--mono);font-size:11px;color:var(--gold);margin-top:8px}
+@keyframes pu{0%,100%{opacity:.3}50%{opacity:1}}
+@keyframes fi{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:translateY(0)}}
+@media(max-width:768px){.ecols{grid-template-columns:1fr}.ng.c4,.ng.c3{grid-template-columns:1fr}.gi.wide{grid-column:span 1}}
+</style>
+
+</head>
+<body>
+<div class="sidebar">
+  <div class="logo"><a href="../index.html">Neuro<span>CGMD</span></a>
+    <span class="version">v1.0.0 Documentation</span></div>
+  <div class="section-title">Getting Started</div>
+  <a class="nav-link" href="../index.html">Home</a>
+  <a class="nav-link" href="../install.html">Installation</a>
+  <a class="nav-link" href="../quickstart.html">Quickstart</a>
+  <div class="section-title">Tutorial</div>
+  <a class="nav-link" href="../tutorial/barnase-barstar.html">Barnase-Barstar</a>
+  <a class="nav-link" href="../tutorial/output-gallery.html">Output Gallery</a>
+  <div class="section-title">User Guide</div>
+  <a class="nav-link" href="../manual/configuration.html">Configuration</a>
+  <a class="nav-link" href="../manual/running.html">Running Simulations</a>
+  <a class="nav-link" href="../manual/analysis.html">Analysis Pipeline</a>
+  <a class="nav-link" href="../manual/back-mapping.html">CG-to-AA Back-mapping</a>
+  <div class="section-title">Reference</div>
+  <a class="nav-link" href="../reference/architecture.html">Architecture</a>
+  <a class="nav-link" href="../reference/forcefields.html">Force Fields</a>
+  <a class="nav-link active" href="../reference/integrators.html">Integrators</a>
+  <a class="nav-link" href="../reference/qcloud.html">QCloud Layer</a>
+  <a class="nav-link" href="../reference/ml-residual.html">ML Residual</a>
+  <a class="nav-link" href="../reference/observables.html">Observables</a>
+  <div class="section-title">Community</div>
+  <a class="nav-link" href="../compare.html">Comparison</a>
+  <a class="nav-link" href="../contact.html">Contact & Cite</a>
+</div>
+<div class="main">
+<div class="content">
+
+<h1>Integrator <span class="accent">Reference</span></h1>
+<p class="page-desc">Time integration algorithms for propagating the equations of motion. NeuroCGMD implements velocity-Verlet and BAOAB Langevin integrators with stochastic thermostats for canonical (NVT) sampling.</p>
+
+<div class="layer" style="background:var(--bg-card);border:1px solid var(--blue)40">
+<div class="layer-title" style="color:var(--blue)" onclick="T(this)"><span class="tg open">&#9654;</span> VELOCITY-VERLET LANGEVIN <span style="font-size:11px;font-weight:400;color:var(--text-muted);text-transform:none;letter-spacing:0">&mdash; primary integrator for production dynamics</span></div>
+<div class="layer-body " style="max-height:3000pxpx">
+<div class="nd bl" onclick="N(this)"><div class="nm">Velocity-Verlet Langevin</div><div class="ds">Primary integrator &mdash; two force evaluations per step</div><div class="dt">The workhorse integrator for production dynamics. Implements the velocity-Verlet algorithm with an optional Langevin thermostat for NVT sampling.<br><br><strong>Algorithm (per timestep):</strong><br><div class='fm'>1. v<sub>n+&frac12;</sub> = v<sub>n</sub> + (&Delta;t/2m) F<sub>n</sub></div><div class='fm'>2. Apply thermostat: v<sub>damped</sub> = e<sup>&minus;&gamma;&Delta;t</sup> v + &radic;((1&minus;e<sup>&minus;2&gamma;&Delta;t</sup>) kT/m) &middot; &xi;</div><div class='fm'>3. x<sub>n+1</sub> = x<sub>n</sub> + &Delta;t &middot; v<sub>n+&frac12;</sub></div><div class='fm'>4. Evaluate F<sub>n+1</sub> at new positions</div><div class='fm'>5. v<sub>n+1</sub> = v<sub>n+&frac12;</sub> + (&Delta;t/2m) F<sub>n+1</sub></div><br>The thermostat (step 2) is only applied when <code>stochastic=True</code>. The noise term &xi; is drawn from a standard normal distribution, ensuring correct Boltzmann sampling at the target temperature.<br><br>Kinetic energy is computed at each step: E<sub>k</sub> = &frac12; &sum; m<sub>i</sub> |v<sub>i</sub>|&sup2;</div></div>
+</div></div>
+
+<div class="eqbar"><div class="eq" style="font-size:17px"><b>v</b><sub>n+&frac12;</sub> = <b>v</b><sub>n</sub> + <sup>&Delta;t</sup>&frasl;<sub>2m</sub> <b>F</b><sub>total</sub> &nbsp;&rarr;&nbsp; <b>x</b><sub>n+1</sub> = <b>x</b><sub>n</sub> + &Delta;t&middot;<b>v</b><sub>n+&frac12;</sub> &nbsp;&rarr;&nbsp; <b>v</b><sub>n+1</sub> = <b>v</b><sub>n+&frac12;</sub> + <sup>&Delta;t</sup>&frasl;<sub>2m</sub> <b>F</b><sub>n+1</sub></div><div class="nt">F<sub>total</sub> includes classical, QCloud, and ML contributions</div></div>
+
+<div class="df"><div class="dots"><div class="d pu"></div><div class="d pu"></div><div class="d pu"></div></div><span>alternative integrator</span><div class="dots"><div class="d pu"></div><div class="d pu"></div><div class="d pu"></div></div></div>
+
+<div class="layer" style="background:var(--bg-card);border:1px solid var(--purple)40">
+<div class="layer-title" style="color:var(--purple)" onclick="T(this)"><span class="tg">&#9654;</span> BAOAB LANGEVIN SPLITTING <span style="font-size:11px;font-weight:400;color:var(--text-muted);text-transform:none;letter-spacing:0">&mdash; symmetric splitting, one force eval per step</span></div>
+<div class="layer-body collapsed" style="max-height:0px">
+<div class="nd pu" onclick="N(this)"><div class="nm">BAOAB Langevin Splitting</div><div class="ds">Symmetric splitting &mdash; one force evaluation per step</div><div class="dt">An alternative integrator based on the BAOAB splitting scheme (Leimkuhler &amp; Matthews, 2013). Splits the Liouvillian into kick (B), drift (A), and Ornstein-Uhlenbeck (O) substeps in the symmetric pattern B-A-O-A-B.<br><br>Advantages: better configurational sampling accuracy for equivalent timestep; only one force evaluation per step (vs two for velocity-Verlet). Commonly used in enhanced sampling applications.</div></div>
+</div></div>
+
+<div class="df"><div class="dots"><div class="d go"></div><div class="d go"></div><div class="d go"></div></div><span>parameters</span><div class="dots"><div class="d go"></div><div class="d go"></div><div class="d go"></div></div></div>
+
+<div class="layer" style="background:var(--bg-card);border:1px solid var(--gold)40">
+<div class="layer-title" style="color:var(--gold)" onclick="T(this)"><span class="tg open">&#9654;</span> PARAMETERS <span style="font-size:11px;font-weight:400;color:var(--text-muted);text-transform:none;letter-spacing:0">&mdash; click to expand details</span></div>
+<div class="layer-body " style="max-height:3000pxpx">
+<div class="ng c2"><div class="nd go" onclick="N(this)"><div class="nm">time_step</div><div class="ds">Default: 0.02 ps</div><div class="dt">Integration timestep. For CG dynamics, timesteps of 0.01&ndash;0.04 ps are typical. Stability depends on the fastest vibrational mode (bond frequency).</div></div><div class="nd go" onclick="N(this)"><div class="nm">friction_coefficient</div><div class="ds">Default: from state</div><div class="dt">Langevin coupling constant &gamma; (ps<sup>&minus;1</sup>). Controls the strength of thermostat coupling. Higher values: stronger coupling, faster equilibration. Lower values: more natural dynamics.</div></div><div class="nd go" onclick="N(this)"><div class="nm">stochastic</div><div class="ds">Default: False</div><div class="dt">Enable the stochastic Langevin noise term. Required for NVT sampling. When False, the integrator runs as deterministic velocity-Verlet (NVE-like).</div></div><div class="nd go" onclick="N(this)"><div class="nm">thermal_energy_scale</div><div class="ds">Default: 1.0</div><div class="dt">Scaling factor for kT in the noise term. Normally 1.0 for standard simulations. Can be adjusted for replica exchange or simulated tempering protocols.</div></div></div>
+</div></div>
+
+</div>
+<div class="footer">
+  NeuroCGMD v1.0.0 &middot; MIT License &middot;
+  <a href="mailto:bessuman.academia@gmail.com">bessuman.academia@gmail.com</a><br>
+  500 KB of Python that speaks the language of atoms.
+</div>
+</div>
+
+<script>
+function N(e){e.classList.toggle('ex')}
+function T(t){var b=t.nextElementSibling,g=t.querySelector('.tg');b.classList.toggle('collapsed');g.classList.toggle('open')}
+</script>
+
+</body>
+</html>

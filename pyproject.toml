@@ -1,0 +1,99 @@
+[build-system]
+requires = ["setuptools>=69", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "neurocgmd"
+version = "1.0.0"
+description = "Quantum-Classical-CG-ML Cooperative Molecular Dynamics Engine"
+readme = "README.md"
+requires-python = ">=3.11"
+license = {text = "MIT"}
+authors = [
+    { name = "Bernard Essuman" },
+]
+keywords = [
+    "molecular-dynamics",
+    "coarse-grained",
+    "quantum-mechanics",
+    "machine-learning",
+    "protein-simulation",
+    "back-mapping",
+    "force-field",
+]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Science/Research",
+    "Topic :: Scientific/Engineering :: Chemistry",
+    "Topic :: Scientific/Engineering :: Physics",
+    "Topic :: Scientific/Engineering :: Bio-Informatics",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Operating System :: OS Independent",
+]
+dependencies = [
+    "numpy>=1.24",
+    "matplotlib>=3.7",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0",
+    "pytest-cov",
+    "ruff",
+]
+
+[project.urls]
+Homepage = "https://github.com/sciencemaths-collab/neurocgmd"
+Documentation = "https://github.com/sciencemaths-collab/neurocgmd#readme"
+Repository = "https://github.com/sciencemaths-collab/neurocgmd"
+Issues = "https://github.com/sciencemaths-collab/neurocgmd/issues"
+
+[project.scripts]
+neurocgmd = "neurocgmd:main"
+
+[tool.setuptools]
+include-package-data = true
+py-modules = ["neurocgmd"]
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = [
+    "core", "core.*",
+    "config", "config.*",
+    "chemistry", "chemistry.*",
+    "prepare", "prepare.*",
+    "physics", "physics.*",
+    "topology", "topology.*",
+    "forcefields", "forcefields.*",
+    "graph", "graph.*",
+    "plasticity", "plasticity.*",
+    "compartments", "compartments.*",
+    "qcloud", "qcloud.*",
+    "ml", "ml.*",
+    "ai_control", "ai_control.*",
+    "integrators", "integrators.*",
+    "sampling", "sampling.*",
+    "memory", "memory.*",
+    "optimization", "optimization.*",
+    "visualization", "visualization.*",
+    "validation", "validation.*",
+    "io", "io.*",
+    "scripts", "scripts.*",
+    "spring", "spring.*",
+]
+exclude = ["tests", "tests.*", "outputs", "outputs.*"]
+
+[tool.setuptools.package-data]
+"benchmarks" = ["**/*.pdb", "**/*.toml", "**/*.json"]
+"examples" = ["*.toml"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

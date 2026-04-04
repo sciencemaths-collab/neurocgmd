@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Observables - NeuroCGMD Documentation</title>
+<meta name="description" content="NeuroCGMD: Quantum-Classical-CG-ML Cooperative Molecular Dynamics Engine documentation.">
+<link rel="stylesheet" href="../style.css">
+
+<style>
+.layer{position:relative;margin:0 0 6px;border-radius:12px;padding:20px;transition:all .3s}
+.layer-title{font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;margin-bottom:14px;display:flex;align-items:center;gap:10px;cursor:pointer;user-select:none}
+.layer-title .tg{font-size:11px;opacity:.5;transition:transform .3s}
+.layer-title .tg.open{transform:rotate(90deg)}
+.layer-body{overflow:hidden;transition:max-height .5s ease,opacity .3s}
+.layer-body.collapsed{max-height:0!important;opacity:0;padding:0}
+.ng{display:grid;gap:10px}
+.ng.c4{grid-template-columns:repeat(4,1fr)}.ng.c3{grid-template-columns:repeat(3,1fr)}.ng.c2{grid-template-columns:repeat(2,1fr)}
+.nd{background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:14px 16px;cursor:pointer;transition:all .25s;position:relative;overflow:hidden}
+.nd:hover{transform:translateY(-3px);box-shadow:0 8px 24px #00000060}
+.nd::before{content:'';position:absolute;top:0;left:0;right:0;height:3px}
+.nd.bl::before{background:var(--blue)}.nd.bl:hover{border-color:var(--blue)}
+.nd.pu::before{background:var(--purple)}.nd.pu:hover{border-color:var(--purple)}
+.nd.go::before{background:var(--gold)}.nd.go:hover{border-color:var(--gold)}
+.nd.te::before{background:var(--teal)}.nd.te:hover{border-color:var(--teal)}
+.nd.gr::before{background:var(--green)}.nd.gr:hover{border-color:var(--green)}
+.nd.or::before{background:var(--orange)}.nd.or:hover{border-color:var(--orange)}
+.nd.pk::before{background:var(--pink)}.nd.pk:hover{border-color:var(--pink)}
+.nd .nm{font-size:13px;font-weight:600;margin-bottom:4px}
+.nd .ds{font-size:11px;color:var(--text-muted);line-height:1.5}
+.nd .dt{display:none;margin-top:10px;padding-top:10px;border-top:1px solid var(--border);font-size:12px;color:var(--text-muted);line-height:1.7}
+.nd.ex .dt{display:block;animation:fi .3s}
+.nd .fm{font-family:'Times New Roman',Georgia,serif;font-size:13px;color:var(--gold);margin:6px 0;font-style:italic}
+.eqbar{background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:14px 20px;margin:12px 0;text-align:center;transition:border-color .3s;cursor:pointer}
+.eqbar:hover{border-color:var(--gold)}
+.eqbar .eq{color:var(--green);font-family:'Times New Roman',Georgia,serif}
+.eqbar .nt{font-size:12px;color:var(--text-muted);margin-top:6px;font-style:italic}
+.ecols{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px}
+.ecol{display:flex;flex-direction:column;gap:8px}
+.ch{text-align:center;font-size:12px;font-weight:700;letter-spacing:.06em;padding:8px;border-radius:6px;margin-bottom:4px}
+.df{display:flex;align-items:center;justify-content:center;gap:8px;margin:8px 0;font-size:11px;color:var(--text-muted)}
+.df .dots{display:flex;gap:4px}
+.df .d{width:4px;height:4px;border-radius:50%;animation:pu 1.5s ease-in-out infinite}
+.df .d:nth-child(2){animation-delay:.3s}.df .d:nth-child(3){animation-delay:.6s}
+.df .d.bl{background:var(--blue)}.df .d.pu{background:var(--purple)}.df .d.go{background:var(--gold)}
+.df .d.te{background:var(--teal)}.df .d.gr{background:var(--green)}.df .d.pk{background:var(--pink)}
+.al{list-style:none;padding:0;margin:8px 0 0}
+.al li{font-size:12px;padding:5px 0;display:flex;justify-content:space-between;border-bottom:1px solid #30363D40}
+.al li:last-child{border-bottom:none}
+.al .n{font-weight:600}.al .d{color:var(--text-muted);font-size:11px}
+.chips{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin:20px 0}
+.chip{padding:10px 18px;border-radius:20px;font-size:12px;font-weight:600;text-align:center;border:1px solid;transition:transform .2s}
+.chip:hover{transform:scale(1.05)}
+.chip.bl{color:var(--blue);border-color:#58A6FF30;background:#58A6FF08}
+.chip.pu{color:var(--purple);border-color:#BC8CFF30;background:#BC8CFF08}
+.chip.go{color:var(--gold);border-color:#F0C75E30;background:#F0C75E08}
+.chip.te{color:var(--teal);border-color:#3FB9A230;background:#3FB9A208}
+.chip.pk{color:var(--pink);border-color:#F778BA30;background:#F778BA08}
+.chip.or{color:var(--orange);border-color:#F0883E30;background:#F0883E08}
+.chip.gr{color:var(--green);border-color:#56D36430;background:#56D36408}
+.gi{background:var(--bg-card);border:1px solid var(--border);border-radius:10px;overflow:hidden;transition:border-color .3s}
+.gi:hover{border-color:var(--blue)}.gi img{width:100%;display:block}
+.gi .cap{padding:12px 14px}.gi .cap h4{font-size:13px;margin-bottom:3px}.gi .cap p{font-size:12px;color:var(--text-muted);margin:0}
+.gg{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px;margin:24px 0}
+.gi.wide{grid-column:span 2}
+.contact-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;margin:24px 0}
+.cc{background:var(--bg-card);border:1px solid var(--border);border-radius:10px;padding:18px;text-align:center;transition:border-color .3s;display:block}
+.cc:hover{border-color:var(--teal)}.cc .tp{font-size:11px;color:var(--text-muted);text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px}
+.cc .sj{font-family:var(--mono);font-size:11px;color:var(--gold);margin-top:8px}
+@keyframes pu{0%,100%{opacity:.3}50%{opacity:1}}
+@keyframes fi{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:translateY(0)}}
+@media(max-width:768px){.ecols{grid-template-columns:1fr}.ng.c4,.ng.c3{grid-template-columns:1fr}.gi.wide{grid-column:span 1}}
+</style>
+
+</head>
+<body>
+<div class="sidebar">
+  <div class="logo"><a href="../index.html">Neuro<span>CGMD</span></a>
+    <span class="version">v1.0.0 Documentation</span></div>
+  <div class="section-title">Getting Started</div>
+  <a class="nav-link" href="../index.html">Home</a>
+  <a class="nav-link" href="../install.html">Installation</a>
+  <a class="nav-link" href="../quickstart.html">Quickstart</a>
+  <div class="section-title">Tutorial</div>
+  <a class="nav-link" href="../tutorial/barnase-barstar.html">Barnase-Barstar</a>
+  <a class="nav-link" href="../tutorial/output-gallery.html">Output Gallery</a>
+  <div class="section-title">User Guide</div>
+  <a class="nav-link" href="../manual/configuration.html">Configuration</a>
+  <a class="nav-link" href="../manual/running.html">Running Simulations</a>
+  <a class="nav-link" href="../manual/analysis.html">Analysis Pipeline</a>
+  <a class="nav-link" href="../manual/back-mapping.html">CG-to-AA Back-mapping</a>
+  <div class="section-title">Reference</div>
+  <a class="nav-link" href="../reference/architecture.html">Architecture</a>
+  <a class="nav-link" href="../reference/forcefields.html">Force Fields</a>
+  <a class="nav-link" href="../reference/integrators.html">Integrators</a>
+  <a class="nav-link" href="../reference/qcloud.html">QCloud Layer</a>
+  <a class="nav-link" href="../reference/ml-residual.html">ML Residual</a>
+  <a class="nav-link active" href="../reference/observables.html">Observables</a>
+  <div class="section-title">Community</div>
+  <a class="nav-link" href="../compare.html">Comparison</a>
+  <a class="nav-link" href="../contact.html">Contact & Cite</a>
+</div>
+<div class="main">
+<div class="content">
+
+<h1>Observable <span class="accent">Reference</span></h1>
+<p class="page-desc">Complete reference for all molecular observables computed by the NeuroCGMD analysis pipeline. Each observable is computed at the level where it is most physically meaningful &mdash; CG for collective properties, AA for atomic-detail properties.</p>
+
+<div class="layer" style="background:var(--bg-card);border:1px solid var(--blue)40">
+<div class="layer-title" style="color:var(--blue)" onclick="T(this)"><span class="tg open">&#9654;</span> STRUCTURAL OBSERVABLES (CG) <span style="font-size:11px;font-weight:400;color:var(--text-muted);text-transform:none;letter-spacing:0">&mdash; computed on CG bead positions</span></div>
+<div class="layer-body " style="max-height:3000pxpx">
+<div class="ng c2"><div class="nd bl" onclick="N(this)"><div class="nm">RMSD</div><div class="ds">Root Mean Square Deviation</div><div class="dt">Mass-weighted structural deviation from a reference configuration. Measures overall structural drift over the trajectory.<br><br><div class='fm'>RMSD = &radic;(&sum; m<sub>i</sub> |r<sub>i</sub> &minus; r<sub>ref,i</sub>|&sup2; / &sum; m<sub>i</sub>)</div><br>Units: nm. Computed at CG level. A plateau in RMSD indicates the system has reached structural equilibrium.</div></div><div class="nd bl" onclick="N(this)"><div class="nm">RMSF</div><div class="ds">Root Mean Square Fluctuation</div><div class="dt">Per-particle time-averaged positional fluctuation. Identifies flexible loops, hinge regions, and rigid structural cores.<br><br><div class='fm'>RMSF(i) = &radic;(&lt;|r<sub>i</sub> &minus; &lt;r<sub>i</sub>&gt;|&sup2;&gt;)</div><br>Units: nm. High RMSF beads correspond to flexible surface loops; low RMSF beads form the structural core.</div></div><div class="nd bl" onclick="N(this)"><div class="nm">Radius of Gyration (Rg)</div><div class="ds">Mass-weighted compactness measure</div><div class="dt">Quantifies the overall size and compactness of the molecular system.<br><br><div class='fm'>R<sub>g</sub> = &radic;(&sum; m<sub>i</sub> |r<sub>i</sub> &minus; r<sub>COM</sub>|&sup2; / &sum; m<sub>i</sub>)</div><br>Units: nm. Decreasing Rg indicates compaction (e.g., binding). Stable Rg indicates structural integrity.</div></div><div class="nd bl" onclick="N(this)"><div class="nm">SASA</div><div class="ds">Solvent Accessible Surface Area</div><div class="dt">Shrake-Rupley algorithm with configurable probe radius (default 0.14 nm). Distributes test points uniformly on a sphere around each particle and counts exposed points.<br><br>Units: nm&sup2;. Decreasing SASA upon binding indicates interface burial. Tracks solvent exposure changes during conformational transitions.</div></div></div>
+</div></div>
+
+<div class="df"><div class="dots"><div class="d bl"></div><div class="d bl"></div><div class="d bl"></div></div><span>thermodynamic observables</span><div class="dots"><div class="d bl"></div><div class="d bl"></div><div class="d bl"></div></div></div>
+
+<div class="layer" style="background:var(--bg-card);border:1px solid var(--blue)40">
+<div class="layer-title" style="color:var(--blue)" onclick="T(this)"><span class="tg open">&#9654;</span> THERMODYNAMIC OBSERVABLES (CG) <span style="font-size:11px;font-weight:400;color:var(--text-muted);text-transform:none;letter-spacing:0">&mdash; free energy, pair correlations, reaction coordinates</span></div>
+<div class="layer-body " style="max-height:3000pxpx">
+<div class="ng c2"><div class="nd bl" onclick="N(this)"><div class="nm">RDF g(r)</div><div class="ds">Radial Distribution Function</div><div class="dt">Pair correlation function describing the probability of finding a particle at distance r from another, normalized by ideal gas density.<br><br><div class='fm'>g(r) = &lt;n(r)&gt; / (4&pi;r&sup2; &Delta;r &rho;)</div><br>Units: dimensionless. First peak position reveals equilibrium inter-particle distance. g(r) &rarr; 1 at large r indicates proper normalization. Computed from fixed simulation volume.</div></div><div class="nd bl" onclick="N(this)"><div class="nm">Potential of Mean Force</div><div class="ds">Free energy from Boltzmann inversion</div><div class="dt">Converts the probability distribution of a collective variable (typically COM distance) into a free energy profile:<br><br><div class='fm'>W(r) = &minus;k<sub>B</sub>T ln[P(r) / P<sub>max</sub>]</div><br>Units: kT. Minima correspond to metastable states. Barriers indicate transition state energetics. Limited by sampling &mdash; regions not visited have undefined PMF.</div></div><div class="nd bl" onclick="N(this)"><div class="nm">2D Free Energy Landscape</div><div class="ds">Two-dimensional PMF</div><div class="dt">Joint probability distribution of two collective variables (COM distance and R<sub>g</sub>) converted to free energy:<br><br><div class='fm'>F(x,y) = &minus;k<sub>B</sub>T ln[P(x,y) / P<sub>max</sub>]</div><br>Displayed as a heat map with trajectory overlay showing start and end points. Identifies binding pathways and metastable basins.</div></div><div class="nd bl" onclick="N(this)"><div class="nm">Reaction Coordinate</div><div class="ds">Center-of-mass distance</div><div class="dt">Mass-weighted center-of-mass distance between binding partners over time. Serves as the primary reaction coordinate for binding processes.<br><br>Units: nm. Decreasing distance indicates binding progression. Fluctuations reveal the dynamics of approach, contact, and separation events.</div></div></div>
+</div></div>
+
+<div class="df"><div class="dots"><div class="d te"></div><div class="d te"></div><div class="d te"></div></div><span>AA-level observables from back-mapped structures</span><div class="dots"><div class="d te"></div><div class="d te"></div><div class="d te"></div></div></div>
+
+<div class="layer" style="background:var(--bg-card);border:1px solid var(--teal)40">
+<div class="layer-title" style="color:var(--teal)" onclick="T(this)"><span class="tg open">&#9654;</span> H-BOND &amp; CONTACT ANALYSIS (AA) <span style="font-size:11px;font-weight:400;color:var(--text-muted);text-transform:none;letter-spacing:0">&mdash; requires actual amino acid identity and atomic geometry</span></div>
+<div class="layer-body " style="max-height:3000pxpx">
+<div class="ng c2"><div class="nd te" onclick="N(this)"><div class="nm">H-bond Detection</div><div class="ds">Geometric criteria with angle validation</div><div class="dt">H-bonds are detected on back-mapped AA structures using combined distance and angle criteria to minimize false positives:<br><br><strong>Distance:</strong> donor-acceptor &lt; 3.5 &Aring;<br><strong>Angle:</strong> D-H&middot;&middot;&middot;A &gt; 120&deg; (approximated from CA&rarr;donor direction)<br><strong>Proline:</strong> excluded as donor (secondary amine, no H)<br><br><strong>Backbone:</strong> N (donor) and O (acceptor)<br><strong>Side-chain donors:</strong> ARG (NE, NH1, NH2), LYS (NZ), ASN (ND2), GLN (NE2), HIS (ND1, NE2), TRP (NE1), SER (OG), THR (OG1), TYR (OH), CYS (SG)<br><strong>Side-chain acceptors:</strong> ASP (OD1, OD2), GLU (OE1, OE2), ASN (OD1), GLN (OE1), HIS (ND1, NE2), SER (OG), THR (OG1), TYR (OH)</div></div><div class="nd te" onclick="N(this)"><div class="nm">Contact Analysis</div><div class="ds">Heavy-atom closest approach</div><div class="dt">Residue-residue contacts detected from back-mapped AA heavy-atom distances:<br><br><strong>Contact cutoff:</strong> 4.5 &Aring; (heavy atoms, excludes H)<br><strong>CA pre-filter:</strong> skip pairs with CA-CA &gt; 12 &Aring; (efficiency)<br><strong>Persistent contact:</strong> present in &gt; 50% of analyzed frames<br><br>Contacts are computed per-amino-acid (e.g., GLY31-HIS102) using actual residue names from the PDB, providing publication-ready interface maps.</div></div></div>
+</div></div>
+
+</div>
+<div class="footer">
+  NeuroCGMD v1.0.0 &middot; MIT License &middot;
+  <a href="mailto:bessuman.academia@gmail.com">bessuman.academia@gmail.com</a><br>
+  500 KB of Python that speaks the language of atoms.
+</div>
+</div>
+
+<script>
+function N(e){e.classList.toggle('ex')}
+function T(t){var b=t.nextElementSibling,g=t.querySelector('.tg');b.classList.toggle('collapsed');g.classList.toggle('open')}
+</script>
+
+</body>
+</html>
