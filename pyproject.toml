@@ -47,8 +47,8 @@ dev = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/sciencemaths-collab/neurocgmd"
-Documentation = "https://github.com/sciencemaths-collab/neurocgmd#readme"
+Homepage = "https://neurocgmd.org"
+Documentation = "https://neurocgmd.org"
 Repository = "https://github.com/sciencemaths-collab/neurocgmd"
 Issues = "https://github.com/sciencemaths-collab/neurocgmd/issues"
 

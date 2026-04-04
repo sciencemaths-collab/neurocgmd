@@ -397,7 +397,7 @@ If you use NeuroCGMD in your research, please cite:
   title   = {NeuroCGMD: Quantum-Classical-CG-ML Cooperative Molecular Dynamics Engine},
   year    = {2026},
   version = {1.0.0},
-  url     = {https://github.com/sciencemaths-collab/neurocgmd}
+  url     = {https://neurocgmd.org}
 }
 ```
 
@@ -410,5 +410,9 @@ MIT License. See [LICENSE](LICENSE) for details.
 ---
 
 <p align="center">
+  <a href="https://neurocgmd.org">neurocgmd.org</a> &nbsp;&bull;&nbsp;
+  <a href="https://pypi.org/project/neurocgmd/">PyPI</a> &nbsp;&bull;&nbsp;
+  <a href="https://github.com/sciencemaths-collab/neurocgmd">GitHub</a>
+  <br>
   <sub>Built with cooperative intelligence. 500 KB of Python that speaks the language of atoms.</sub>
 </p>

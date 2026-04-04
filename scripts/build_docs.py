@@ -169,9 +169,11 @@ def _page(path: str, title: str, content: str) -> str:
 {content}
 </div>
 <div class="footer">
-  NeuroCGMD v1.0.0 &middot; MIT License &middot;
-  <a href="mailto:bessuman.academia@gmail.com">bessuman.academia@gmail.com</a><br>
-  500 KB of Python that speaks the language of atoms.
+  NeuroCGMD v1.0.0 &middot; MIT License<br>
+  <a href="https://neurocgmd.org">neurocgmd.org</a> &middot;
+  <a href="https://pypi.org/project/neurocgmd/">PyPI</a> &middot;
+  <a href="https://github.com/sciencemaths-collab/neurocgmd">GitHub</a> &middot;
+  <a href="mailto:bessuman.academia@gmail.com">bessuman.academia@gmail.com</a>
 </div>
 </div>
 {INTERACTIVE_JS}
@@ -1021,7 +1023,7 @@ def build_contact():
 
 {flow("go", "citing NeuroCGMD")}
 
-{layer("var(--gold)", "BIBTEX CITATION", '<pre><code>@software{{neurocgmd2026,\\n  author  = {{Essuman, Bernard}},\\n  title   = {{NeuroCGMD: Quantum-Classical-CG-ML Cooperative\\n             Molecular Dynamics Engine}},\\n  year    = {{2026}},\\n  version = {{1.0.0}},\\n  url     = {{https://github.com/sciencemaths-collab/neurocgmd}}\\n}}</code></pre>')}
+{layer("var(--gold)", "BIBTEX CITATION", '<pre><code>@software{{neurocgmd2026,\\n  author  = {{Essuman, Bernard}},\\n  title   = {{NeuroCGMD: Quantum-Classical-CG-ML Cooperative\\n             Molecular Dynamics Engine}},\\n  year    = {{2026}},\\n  version = {{1.0.0}},\\n  url     = {{https://neurocgmd.org}}\\n}}</code></pre>')}
 
 <div class="chips">
   <div class="chip te">MIT License</div>
