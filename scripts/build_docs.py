@@ -281,43 +281,58 @@ def build_home():
 
 def build_install():
     # Method 1: pip
-    m_pip = node("gr", "Method 1: Install with pip (Recommended)", "The simplest way — one command, everything is handled for you",
-        "This is the recommended method for most users. Open a terminal (Terminal on macOS, Command Prompt or PowerShell on Windows, or any terminal on Linux) and type:<br><br>"
+    m_pip = node("gr", "Option 1: pip install (Recommended)", "The simplest way — one command, everything is handled for you",
+        "<strong>Step 1.</strong> Open a terminal<br>"
+        "&bull; On macOS: search for \"Terminal\" in Spotlight<br>"
+        "&bull; On Windows: open \"Command Prompt\" or \"PowerShell\"<br>"
+        "&bull; On Linux: open any terminal application<br><br>"
+        "<strong>Step 2.</strong> Type this command and press Enter:<br>"
         "<pre><code>pip install neurocgmd</code></pre>"
-        "This automatically downloads NeuroCGMD and its two dependencies (NumPy and Matplotlib) from the Python Package Index (PyPI). Once complete, the <code>neurocgmd</code> command is available system-wide.<br><br>"
-        "<strong>If you get a permission error</strong>, try:<br>"
-        "<pre><code>pip install --user neurocgmd</code></pre>"
-        "<strong>If you use conda</strong>:<br>"
-        "<pre><code>pip install neurocgmd</code></pre>"
-        "pip works inside conda environments.")
+        "<strong>Step 3.</strong> Wait for it to finish. It downloads NeuroCGMD and its dependencies (NumPy and Matplotlib) automatically.<br><br>"
+        "<strong>Step 4.</strong> That's it. NeuroCGMD is now installed.<br><br>"
+        "<strong>Getting an error?</strong><br>"
+        "&bull; Try <code>pip3 install neurocgmd</code> instead<br>"
+        "&bull; Or try <code>python3 -m pip install neurocgmd</code><br>"
+        "&bull; Permission denied? Add <code>--user</code>: <code>pip install --user neurocgmd</code>")
 
-    # Method 2: Download from PyPI
-    m_pypi = node("bl", "Method 2: Download from PyPI", "Download the package file manually and install it yourself",
-        "Go to the NeuroCGMD download page:<br><br>"
-        "<strong><a href=\"https://pypi.org/project/neurocgmd/1.0.0/#files\" target=\"_blank\">https://pypi.org/project/neurocgmd/1.0.0/#files</a></strong><br><br>"
-        "You will see two files available for download:<br><br>"
-        "<strong>Option A &mdash; Wheel file (.whl)</strong> &mdash; pre-built, installs fastest:<br>"
-        "<code>neurocgmd-1.0.0-py3-none-any.whl</code> (520 KB)<br>"
-        "After downloading, open a terminal, navigate to your Downloads folder, and run:<br>"
-        "<pre><code>cd ~/Downloads\npip install neurocgmd-1.0.0-py3-none-any.whl</code></pre>"
-        "<strong>Option B &mdash; Source archive (.tar.gz)</strong> &mdash; contains the full source code:<br>"
-        "<code>neurocgmd-1.0.0.tar.gz</code> (745 KB)<br>"
-        "After downloading, open a terminal and run:<br>"
-        "<pre><code>cd ~/Downloads\ntar xzf neurocgmd-1.0.0.tar.gz\ncd neurocgmd-1.0.0\npip install .</code></pre>"
-        "Both options install the exact same software. The wheel is faster; the tar.gz lets you browse the source code before installing.")
+    # Method 2: Wheel
+    m_whl = node("bl", "Option 2: Download Wheel (.whl)", "A pre-built package file you download and install",
+        "<strong>Step 1.</strong> Go to: <a href='https://pypi.org/project/neurocgmd/1.0.0/#files' target='_blank'>pypi.org/project/neurocgmd/1.0.0/#files</a><br><br>"
+        "<strong>Step 2.</strong> Click on <strong>neurocgmd-1.0.0-py3-none-any.whl</strong> to download it<br><br>"
+        "<strong>Step 3.</strong> Open a terminal and go to your Downloads folder:<br>"
+        "<pre><code>cd ~/Downloads</code></pre>"
+        "<strong>Step 4.</strong> Install it:<br>"
+        "<pre><code>pip install neurocgmd-1.0.0-py3-none-any.whl</code></pre>")
 
-    # Method 3: From GitHub
-    m_github = node("pu", "Method 3: Install from GitHub", "Get the latest source code directly from the repository",
-        "This method is for developers who want to modify the code, contribute, or always stay on the latest version.<br><br>"
-        "<strong>Step 1:</strong> Clone the repository:<br>"
+    # Method 3: Tarball
+    m_tar = node("go", "Option 3: Download Tarball (.tar.gz)", "A compressed archive containing the source code",
+        "<strong>Step 1.</strong> Go to: <a href='https://pypi.org/project/neurocgmd/1.0.0/#files' target='_blank'>pypi.org/project/neurocgmd/1.0.0/#files</a><br><br>"
+        "<strong>Step 2.</strong> Click on <strong>neurocgmd-1.0.0.tar.gz</strong> to download it<br><br>"
+        "<strong>Step 3.</strong> Open a terminal and go to your Downloads folder:<br>"
+        "<pre><code>cd ~/Downloads</code></pre>"
+        "<strong>Step 4.</strong> Extract the archive:<br>"
+        "<pre><code>tar xzf neurocgmd-1.0.0.tar.gz</code></pre>"
+        "<strong>Step 5.</strong> Go into the extracted folder:<br>"
+        "<pre><code>cd neurocgmd-1.0.0</code></pre>"
+        "<strong>Step 6.</strong> Install (the dot at the end is important):<br>"
+        "<pre><code>pip install .</code></pre>")
+
+    # Method 4: From GitHub
+    m_github = node("pu", "Option 4: From GitHub (source code)", "Get the latest source code — with git or as a ZIP download",
+        "<strong>With git:</strong><br><br>"
+        "<strong>Step 1.</strong> Open a terminal and type:<br>"
         "<pre><code>git clone https://github.com/sciencemaths-collab/neurocgmd.git</code></pre>"
-        "<strong>Step 2:</strong> Enter the directory and install:<br>"
-        "<pre><code>cd neurocgmd\npip install -e .</code></pre>"
-        "The <code>-e</code> flag means \"editable mode\" &mdash; any changes you make to the source code take effect immediately without reinstalling.<br><br>"
-        "<strong>To include development tools</strong> (testing, linting):<br>"
-        "<pre><code>pip install -e \".[dev]\"</code></pre>"
-        "You can also download the source as a zip without git:<br>"
-        "<a href=\"https://github.com/sciencemaths-collab/neurocgmd/archive/refs/heads/main.zip\">Download ZIP from GitHub</a>")
+        "<strong>Step 2.</strong> Go into the folder:<br>"
+        "<pre><code>cd neurocgmd</code></pre>"
+        "<strong>Step 3.</strong> Install:<br>"
+        "<pre><code>pip install .</code></pre>"
+        "<br><strong>Without git (ZIP download):</strong><br><br>"
+        "<strong>Step 1.</strong> Download: <a href='https://github.com/sciencemaths-collab/neurocgmd/archive/refs/heads/main.zip'>neurocgmd-main.zip</a><br><br>"
+        "<strong>Step 2.</strong> Unzip the file (double-click on macOS/Windows)<br><br>"
+        "<strong>Step 3.</strong> Open a terminal and go into the folder:<br>"
+        "<pre><code>cd neurocgmd-main</code></pre>"
+        "<strong>Step 4.</strong> Install:<br>"
+        "<pre><code>pip install .</code></pre>")
 
     # Prerequisites
     prereq = node("go", "Prerequisites", "What you need before installing NeuroCGMD",
@@ -360,7 +375,8 @@ def build_install():
 
 <div class="ng" style="grid-template-columns:1fr">
 {m_pip}
-{m_pypi}
+{m_whl}
+{m_tar}
 {m_github}
 </div>
 

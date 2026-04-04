@@ -45,59 +45,162 @@ The result: **a 500 KB pure-Python package** that does what legacy codes need mi
 <a id="install"></a>
 ## Download & Install
 
+> **Before you begin:** You need Python 3.11 or newer installed on your computer.
+> To check, open a terminal and type `python3 --version`. If you see 3.11 or higher, you're ready.
+> If not, download Python from [python.org/downloads](https://python.org/downloads).
+
+### Quick reference
+
 | Method | Command / Link |
 |:-------|:---------------|
 | **pip** (recommended) | `pip install neurocgmd` |
 | **Wheel** (.whl) | [neurocgmd-1.0.0-py3-none-any.whl](https://pypi.org/project/neurocgmd/1.0.0/#files) |
 | **Tarball** (.tar.gz) | [neurocgmd-1.0.0.tar.gz](https://pypi.org/project/neurocgmd/1.0.0/#files) |
 | **Source** (GitHub) | [github.com/sciencemaths-collab/neurocgmd](https://github.com/sciencemaths-collab/neurocgmd) |
-| **ZIP** (GitHub) | [Download ZIP](https://github.com/sciencemaths-collab/neurocgmd/archive/refs/heads/main.zip) |
+| **ZIP** (no git needed) | [Download ZIP](https://github.com/sciencemaths-collab/neurocgmd/archive/refs/heads/main.zip) |
 
-### pip (recommended — one command)
+---
+
+### Option 1: pip install (recommended)
+
+This is the easiest method. It works on macOS, Linux, and Windows.
+
+1. Open a terminal (on macOS: search for "Terminal"; on Windows: open "Command Prompt" or "PowerShell")
+2. Type the following command and press Enter:
 ```bash
 pip install neurocgmd
 ```
-This downloads and installs everything automatically. No compilation needed.
+3. Wait for it to finish. It will download NeuroCGMD and its dependencies (NumPy and Matplotlib) automatically.
+4. That's it. NeuroCGMD is now installed.
 
-### From wheel (.whl)
-Download [neurocgmd-1.0.0-py3-none-any.whl](https://pypi.org/project/neurocgmd/1.0.0/#files) from PyPI, then:
+> **Getting an error?** Try `pip3 install neurocgmd` or `python3 -m pip install neurocgmd` instead.
+> If you see "Permission denied", try `pip install --user neurocgmd`.
+
+---
+
+### Option 2: Download the wheel file (.whl)
+
+A wheel file is a pre-built package you download and install manually.
+
+1. Go to the download page: **[pypi.org/project/neurocgmd/1.0.0/#files](https://pypi.org/project/neurocgmd/1.0.0/#files)**
+2. Click on **neurocgmd-1.0.0-py3-none-any.whl** to download it
+3. Open a terminal and navigate to where the file was saved (usually your Downloads folder):
+```bash
+cd ~/Downloads
+```
+4. Install it:
 ```bash
 pip install neurocgmd-1.0.0-py3-none-any.whl
 ```
 
-### From tarball (.tar.gz)
-Download [neurocgmd-1.0.0.tar.gz](https://pypi.org/project/neurocgmd/1.0.0/#files) from PyPI, then:
+---
+
+### Option 3: Download the tarball (.tar.gz)
+
+A tarball is a compressed archive containing the source code.
+
+1. Go to the download page: **[pypi.org/project/neurocgmd/1.0.0/#files](https://pypi.org/project/neurocgmd/1.0.0/#files)**
+2. Click on **neurocgmd-1.0.0.tar.gz** to download it
+3. Open a terminal and navigate to where the file was saved:
+```bash
+cd ~/Downloads
+```
+4. Extract the archive:
 ```bash
 tar xzf neurocgmd-1.0.0.tar.gz
+```
+5. Go into the extracted folder:
+```bash
 cd neurocgmd-1.0.0
+```
+6. Install:
+```bash
 pip install .
 ```
 
-### From source (GitHub)
+> **Note:** The dot (`.`) at the end is important — it tells pip to install from the current folder.
+
+---
+
+### Option 4: Download from GitHub (source code)
+
+This gives you the latest source code and is ideal if you want to browse or modify the code.
+
+**Using git:**
 ```bash
 git clone https://github.com/sciencemaths-collab/neurocgmd.git
 cd neurocgmd
 pip install .
 ```
 
-### Download ZIP (no git required)
-Download [neurocgmd-main.zip](https://github.com/sciencemaths-collab/neurocgmd/archive/refs/heads/main.zip), unzip, then:
+**Without git** (download ZIP):
+1. Go to: **[Download ZIP](https://github.com/sciencemaths-collab/neurocgmd/archive/refs/heads/main.zip)**
+2. Your browser will download a file called `neurocgmd-main.zip`
+3. Unzip it (double-click on macOS/Windows, or `unzip neurocgmd-main.zip` in terminal)
+4. Open a terminal and go into the folder:
 ```bash
 cd neurocgmd-main
+```
+5. Install:
+```bash
 pip install .
 ```
 
-### Verify installation
-After installing with any method above:
+---
+
+### Verify your installation
+
+After installing with any method above, open a terminal and run:
+
 ```bash
-neurocgmd --version    # neurocgmd 1.0.0
-neurocgmd info         # shows all capabilities
+neurocgmd --version
 ```
 
+You should see:
+```
+neurocgmd 1.0.0
+```
+
+Then run the full capabilities display:
+```bash
+neurocgmd info
+```
+
+This shows a color-coded overview of all integrators, force fields, analysis tools, and supported systems.
+
+> **If `neurocgmd` command is not found**, try: `python3 -m neurocgmd info`
+
+---
+
+### Run your first simulation
+
+Once installed, you can run a simulation with a single command:
+
+```bash
+neurocgmd run examples/barnase_barstar.toml
+```
+
+This will:
+- Import a protein structure from a PDB file
+- Run equilibration and production molecular dynamics
+- Apply quantum corrections and ML learning
+- Back-map the trajectory to all-atom resolution
+- Generate 30+ publication-quality analysis plots
+- Export CG and AA trajectory files
+
+All output is saved to the `outputs/` folder.
+
+---
+
 ### Requirements
-- **Python 3.11+** — check with `python3 --version`
-- **numpy** and **matplotlib** — installed automatically
-- No CUDA, MPI, Fortran, or compilation required
+
+| Dependency | Version | Notes |
+|:-----------|:--------|:------|
+| Python | 3.11 or newer | [Download here](https://python.org/downloads) |
+| NumPy | 1.24+ | Installed automatically by pip |
+| Matplotlib | 3.7+ | Installed automatically by pip |
+
+No CUDA, MPI, Fortran, GPU drivers, or compilation required. If you can run Python, you can run NeuroCGMD.
 
 ---
 
